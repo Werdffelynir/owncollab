@@ -100,12 +100,83 @@ class MainController extends Controller {
 
 
 
+		$result = $this->connect->project()->get();
+		if(!$result){
+			$result=[];
+		}
+		$statistic = [];
+		$statistic['tasks_finished'] = $this->connect->task()->getCountFinishedTasks();
+		$statistic['all_tasks'] = $this->connect->task()->getCountAllTasks();
+		$talks = $this->connect->talks->get();
+		$partTalks = 0;
+		function rec_search($this_id, &$arr_subscribers, $talks){
+			
+			for($j=0;$j<count($talks); $j++){
+				if($talks[$j]['rid']==$this_id){
+					$arr_subscribers = array_merge($arr_subscribers,explode(",", $talks[$j]['subscribers']));
+					array_push($arr_subscribers,$talks[$j]['author']);
+					rec_search($talks[$j]['id'], $arr_subscribers,$talks);
+					
+				}
+			}
+		}
+		for($i=0;$i<count($talks);$i++){
+			if($talks[$i]['rid']==0){
+				$arr_subscribers=[];
+				$this_id = $talks[$i]['id'];
+				$arr_subscribers = array_merge($arr_subscribers,explode(",", $talks[$i]['subscribers']));
+				array_push($arr_subscribers,$talks[$i]['author']);
+				rec_search($this_id, $arr_subscribers,$talks);
+				
+				if(in_array($this->userId ,$arr_subscribers)){
+//					echo"<pre>";
+//					var_dump($arr_subscribers);
+//					echo"</pre>";
+					$partTalks++;
+				}
+			}
 
+
+			
+		}
+		$statistic['participating_talks'] = $partTalks;
+		$statistic['all_talks'] = count($this->connect->talks->getAllTalks());
+		$statistic['users'] = count($this->connect->users->getAllUsers());
+		$allActivity = $this->connect->activity->get();
+		$countCreatedFiles = 0;
+		$countDeletedFiles = 0;
+		for($i=0;$i<count($allActivity); $i++){
+			if($allActivity[$i]['type']=="file_created"
+				&& $allActivity[$i]['app']=="files"
+				&& $allActivity[$i]['subject']=="created_self"
+			    && !empty($allActivity[$i]['subjectparams'])
+				&& $allActivity[$i]['object_type'] == "files"){
+				$countCreatedFiles++;
+			}
+		}
+		for($i=0;$i<count($allActivity); $i++){
+			if($allActivity[$i]['type']=="file_deleted"
+				&& $allActivity[$i]['app']=="files"
+				&& $allActivity[$i]['subject']=="deleted_self"
+			    && !empty($allActivity[$i]['subjectparams'])
+				&& $allActivity[$i]['object_type'] == "files"){
+				$countDeletedFiles++;
+			}
+		}
+		$statistic['all_files'] =  $countCreatedFiles - $countDeletedFiles;
+		$statistic['all_groups'] = count($this->connect->groups->get());
+		$statistic['tasks_progress'] = 100*$statistic['tasks_finished']/$statistic['all_tasks'];
+		$statistic['talks_progress'] = 100*$statistic['participating_talks']/$statistic['all_talks'];
+		
+		
 		$params = [
 			'current_user' => $this->userId,
+			'current_val' =>$result,
+			'statistic' =>$statistic
 		];
 
 		return new TemplateResponse($this->appName, 'main', $params);
 	}
+	
 
 }

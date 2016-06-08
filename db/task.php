@@ -140,6 +140,18 @@ class Task
                 FROM `{$this->tableName}` WHERE open = 1";
         return $this->connect->queryAll($sql);
     }
+    public function getCountFinishedTasks(){
+        $sql = "SELECT COUNT(*) as count
+                FROM `{$this->tableName}` WHERE progress = 1";
+       $result = $this->connect->query($sql);
+        return $result['count'];
+    }
+    public function getCountAllTasks(){
+        $sql = "SELECT COUNT(*) as count
+                FROM `{$this->tableName}`";
+        $result = $this->connect->query($sql);
+        return $result['count'];
+    }
 
 
 

@@ -3,6 +3,8 @@
 namespace OCA\Owncollab\Db;
 
 
+use League\Flysystem\Exception;
+
 class Project
 {
     /** @var Connect $connect object instance working with database */
@@ -29,6 +31,17 @@ class Project
         'share_email_recipient',
         'share_is_expire',
         'share_expire_time',
+        'client_name',
+        'country',
+        'desc1',
+        'desc2',
+        'street',
+        'zip',
+        'city',
+        'start_date',
+        'end_date',
+        'comment',
+        'logo',
     ];
 
     /**
@@ -164,6 +177,25 @@ class Project
                 AND appid = 'settings'
                 AND userid = :uid";
         return $this->connect->query($sql, [':uid'=>$uid]);
+    }
+
+
+    public function updateProject($data) {
+        $_data = [];
+        foreach ($data as $key=>$value) {
+            if(in_array($key, $this->fields))
+                $_data [$key] = $value;
+        }
+        $this->connect->update($this->tableName, $_data, 'open = 1');
+    }
+
+    public function createProject($data) {
+        $_data = [];
+        foreach ($data as $key=>$value) {
+            if(in_array($key, $this->fields))
+                $_data [$key] = $value;
+        }
+        $this->connect->insert($this->tableName, $_data);
     }
 
 

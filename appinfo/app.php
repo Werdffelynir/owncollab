@@ -48,10 +48,13 @@ Util::addTranslations($appName);
  */
 if(Helper::isAppPage($appName)){
 	Util::addStyle($appName, 'main');
-//	Util::addStyle($appName, 'jquery-ui-timepicker');
+	Util::addStyle($appName, 'media');
+	Util::addStyle($appName, 'jquery-ui-timepicker');
 //	Util::addStyle($appName, 'jquery.custom-scrollbar');
 //	Util::addScript($appName,'jquery-ui-timepicker');
 //	Util::addScript($appName, 'jquery.custom-scrollbar');
+	Util::addScript($appName, 'libs/jquery-ui-timepicker');
+	Util::addScript($appName, 'libs/an.script_1.0.2');
 	Util::addScript($appName, 'libs/ns.application');
 	Util::addScript($appName, 'init');
 

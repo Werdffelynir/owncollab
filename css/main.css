@@ -4,7 +4,7 @@
 .width1{width: 1%}.width2{width: 2%}.width3{width: 3%}.width4{width: 4%}.width5{width: 5%}.width10{width: 10%}.width15{width: 15%}.width20{width: 20%}.width25{width: 25%}.width30{width: 30%}.width35{width: 35%}.width40{width: 40%}.width45{width: 45%}.width50{width: 50%}.width55{width: 55%}.width60{width: 60%}.width65{width: 65%}.width70{width: 70%}.width75{width: 75%}.width80{width: 80%}.width85{width: 85%}.width90{width: 90%}.width95{width: 95%}.width96{width: 96%}.width97{width: 97%}.width98{width: 98%}.width99{width: 99%}.width100{width: 100%}
 .txt_left{text-align: left}
 .txt_right{text-align: right}
-.txt_center{text-align: right}
+.txt_center{text-align: center}
 .txt_bold{font-weight: bold}
 .valign_baseline{vertical-align: baseline}
 .valign_top{vertical-align: top}
@@ -26,29 +26,171 @@
 .clb_dashboard{
     font-weight: normal;
 }
+.clb_dashboard input{
+    height: 28px;
+}
 .clb_dashboard h1, .clb_dashboard h2, .clb_dashboard h3{
     font-weight: bold;
 }
 .clb_dashboard>div:first-child{
     border-right: 1px solid #0a235d;
+    width: 200px;
 }
 .clb_dashboard>div:last-child{
     padding-left: 10px;
     padding-right: 10px;
 }
+.clb_fields{
+    width: 330px;
+}
 .clb_fields>.tbl>.tbl_cell:first-child{
     width: 60px;
 }
 .clb_fields>.tbl>.tbl_cell:last-child input{
-    width: 60px;
+    width: 266px;
 }
-.clb_fields>.tbl>.tbl_cell:last-child input[name=project_zip],
-.clb_fields>.tbl>.tbl_cell:last-child input[name=project_city]{
-    width: 60px;
+.clb_fields>.tbl>.tbl_cell:last-child input[name=zip]{
+    width:59px;
 }
-
-
-
+.clb_fields>.tbl>.tbl_cell:last-child input[name=city]{
+    width: 200px;
+}
+.clb_dashboard>.tbl_cell:nth-child(2)>.tbl>.tbl_cell{
+    padding: 15px;
+}
+.clb_dashboard>.tbl_cell:nth-child(2)>.tbl>.tbl_cell>h1{
+    margin-bottom: 15px;
+}
+.dp_block{
+    background-color: #F2F2F2;
+    padding: 2px 5px;
+    width: 328px;
+    border-radius: 3px;
+}
+.left_side{
+    width: 500px;
+}
+.left_side textarea{
+    width: 100%;
+    height: 160px;
+    resize: vertical;
+}
+.left_side>form>.tbl>.tbl_cell:nth-child(2){
+    padding: 3px;
+    vertical-align: top;
+    max-width: 135px;
+}
+.clb_logo{
+    background-color: #F2F2F2;
+    width: 133px;
+    height: 133px;
+    text-align: center;
+}
+.clb_logo>.tbl_cell{
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 145%;
+}
+.clb_statistic>.tbl>.tbl_cell{
+    height: 50px;
+    vertical-align: middle;
+    width: 15%;
+    text-align: center;
+}
+.clb_statistic>.tbl>.tbl_cell:nth-child(1),
+.clb_statistic>.tbl>.tbl_cell:nth-child(3){
+    position: relative;
+}
+.clb_statistic>.tbl>.tbl_cell:nth-child(4){
+   width:55%;
+}
+.clb_statistic>.tbl{
+    max-width: 760px;
+}
+.clb_statistic>.tbl>.tbl_cell>canvas{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+}
+.clb_statistic a{
+    font-weight: bold;
+}
+.left_side>form>.tbl>.tbl_cell:nth-child(2)>.tbl:nth-child(2){
+    width: 135px;
+}
+.ui-datepicker{
+    z-index: 99999!important;
+}
+#uploadLogoBtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    height: 30px;
+}
+.uploadLogoBtn{
+    position: relative;
+    overflow: hidden;
+    height: 30px;
+    margin: 3px 3px 3px 0;
+}
+#uploadLogoSpan{
+    width: 110px;
+    height: 30px;
+    min-width: 70px;
+    padding: 5px 10px;
+    background-color: rgba(240,240,240,.9);
+    font-weight: 600;
+    color: #555;
+    border: 1px solid rgba(240,240,240,.9);
+    cursor: pointer;
+    line-height: 30px;
+    border-radius: 3px;
+}
+.uploadLogoBtn:hover #uploadLogoSpan{
+    background-color: rgba(255, 255, 255, .95);
+    color: #111;
+}
+.uploadedfiles .thumbnail {
+    width: 16px;
+    height: 16px;
+    float: left;
+}
+.uploadedfiles .name, .uploadedfiles .size {
+    margin-left: 10px;
+    float: left;
+}
+#ajax_button_show_files{
+    width: auto;
+    min-width: 25px;
+    padding: 5px;
+    background-color: rgba(240,240,240,.9);
+    font-weight: 600;
+    color: #555;
+    border: 1px solid rgba(240,240,240,.9);
+    cursor: pointer;
+}
+#ajax_button_show_files:hover{
+    background-color: rgba(255, 255, 255, .95);
+    color: #111;
+}
+#project_logo{
+    max-width: 133px;
+    max-height: 133px;
+}
+.list_files>ul>li, .uploadedfiles>ul>li{
+    cursor: pointer;
+}
+.clear{
+    clear: both;
+}
 
 
 
