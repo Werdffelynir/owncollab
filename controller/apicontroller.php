@@ -11,71 +11,135 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\Template;
 
-class ApiController extends Controller {
+class ApiController extends Controller
+{
 
-	/** @var string $userId
-	 * current auth user id */
-	private $userId;
+    /** @var string $userId
+     * current auth user id */
+    private $userId;
 
-	/** @var string $userIdAPI
-	 * user id which accesses by API */
-	private $userIdAPI;
+    /** @var string $userIdAPI
+     * user id which accesses by API */
+    private $userIdAPI;
 
-	/** @var bool $isAdmin
-	 * true if current auth user consists into admin group */
-	private $isAdmin;
+    /** @var bool $isAdmin
+     * true if current auth user consists into admin group */
+    private $isAdmin;
 
-	/** @var \OC_L10N $l10n
-	 * languages translations */
-	private $l10n;
+    /** @var \OC_L10N $l10n
+     * languages translations */
+    private $l10n;
 
-	/** @var Connect $connect
-	 * instance working with database */
-	private $connect;
+    /** @var Connect $connect
+     * instance working with database */
+    private $connect;
 
 
-	/**
-	 * ApiController constructor.
-	 * @param string $appName
-	 * @param IRequest $request
-	 * @param $userId
-	 * @param $isAdmin
-	 * @param \OC_L10N $l10n
-	 * @param Connect $connect
-	 */
-	public function __construct(
-		$appName,
-		IRequest $request,
-		$userId,
-		$isAdmin,
-		\OC_L10N $l10n,
-		Connect $connect
-	){
-		parent::__construct($appName, $request);
+    /**
+     * ApiController constructor.
+     * @param string $appName
+     * @param IRequest $request
+     * @param $userId
+     * @param $isAdmin
+     * @param \OC_L10N $l10n
+     * @param Connect $connect
+     */
+    public function __construct(
+        $appName,
+        IRequest $request,
+        $userId,
+        $isAdmin,
+        \OC_L10N $l10n,
+        Connect $connect
+    )
+    {
+        parent::__construct($appName, $request);
 
-		$this->userId = $userId;
-		$this->isAdmin = $isAdmin;
-		$this->l10n = $l10n;
-		$this->connect = $connect;
-	}
+        $this->userId = $userId;
+        $this->isAdmin = $isAdmin;
+        $this->l10n = $l10n;
+        $this->connect = $connect;
+    }
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 */
-	public function index() {
-		$key = Helper::post('key');
-		$data = Helper::post('data',false);
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     */
+    public function index()
+    {
+        $key = Helper::post('key');
+        $data = Helper::post('data', false);
         $this->userIdAPI = Helper::post('uid');
 
-        if(method_exists($this, $key))
+        if (method_exists($this, $key))
             return $this->$key($data);
         else
             return new DataResponse([
                 'access' => 'deny',
                 'errorinfo' => 'API method not exists',
             ]);
-	}
+    }
+
+    /**
+     * @NoCSRFRequired
+     * @param $data
+     * @return DataResponse
+     */
+    public function saveall($data)
+    {
+
+        if (!$this->isAdmin) exit;
+        $params = [
+            'data' => $data,
+            'error' => null,
+            'errorinfo' => '',
+            'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
+        ];
+
+        $form = !empty($data['form']) ? $data['form'] : false;
+
+        if ($form && $this->connect->project()->get()) {
+            $result = $this->connect->project()->updateProject($form);
+            $params['result'] = $result;
+
+        } elseif ($form) {
+            $result = $this->connect->project()->createProject($form);
+            $params['result'] = $result;
+
+        } else {
+            $params['error'] = true;
+            $params['errorinfo'] = 'Empty form fields';
+        }
+
+        return new DataResponse($params);
+    }
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @return TemplateResponse
+     */
+    //TODO: Використовувати метод з застосуванням засобів безпеки
+    public function getlogo()
+    {
+
+
+        $userfiles = \OCA\Files\Helper::getFiles('ProjectLogo');
+        foreach ($userfiles as $f => $file) {
+            $userfiles[$f] = \OCA\Files\Helper::formatFileInfo($file);
+            $userfiles[$f]['mtime'] = $userfiles[$f]['mtime'] / 1000;
+        }
+
+        $params = [
+            'user' => $this->userId,
+            'files' => $userfiles,
+            'error' => null,
+            'errorinfo' => '',
+            'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
+        ];
+
+        return new DataResponse($params);
+    }
 
 
 }

@@ -98,4 +98,5 @@ class Application extends App {
         if (!empty($name)) $_appName = $name;
         return $_appName;
     }
+ 
 }

@@ -34,6 +34,10 @@ class Connect
         $this->project = new Project($this, 'collab_project');
         $this->task = new Task($this, 'collab_tasks');
         $this->link = new Link($this, 'collab_links');
+        $this->talks = new Talks($this, 'collab_messages');
+        $this->users = new Users($this, 'users');
+        $this->activity = new Activity($this, 'activity');
+        $this->groups = new Groups($this, 'groups');
     }
 
     /**
