@@ -260,31 +260,6 @@ if (App.namespace) {
         an.render();
         return an;
     }
-    //invite user
-    // send email list to server
-    $('#invite_user').click(function(event){
-        event.preventDefault();
-        var email_invite = $('#email_invite');
-        var email = email_invite.val();
-
-        if(email.indexOf('@') === -1) {
-            return;
-        }
-console.log(App.uid);
-console.log(email);
-console.log(OC.generateUrl('/apps/owncollab_chart/api'));
-        email_invite.val('');
-        App.Action.Api.crossRequest(OC.generateUrl('/apps/owncollab_chart/api'), 'invite', function (response) {
-            if (response.requesttoken) {
-                App.requesttoken = response.requesttoken;
-            }
-        }, {email_to: email,
-            id_from: App.uid,
-            sender: 'dashboard'});
-
-
-        
-    });
 
 
 }

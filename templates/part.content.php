@@ -146,9 +146,8 @@
                     <?=$_['statistic']['all_groups']?>
                     <canvas id="elips8" width="50" height="50" class=""></canvas>
                 </div>
-                <div class="tbl_cell">groups ... <a href="#" id="invite_user">invite a user</a></div>
+                <div class="tbl_cell">groups ... <a href="mailto:?subject=<?=$_['sub_url']?>&body=<?=$_['body_url']?>">invite a user</a></div>
             </div>
-            <div style="text-align: right; margin-right: 40px;"><input type="text" id="email_invite"></>
         </div>
     </div>
 </div>

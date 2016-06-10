@@ -129,12 +129,11 @@ class MainController extends Controller {
 				rec_search($this_id, $arr_subscribers,$talks);
 				
 				if(in_array($this->userId ,$arr_subscribers)){
-//					echo"<pre>";
-//					var_dump($arr_subscribers);
-//					echo"</pre>";
 					$partTalks++;
 				}
 			}
+
+
 
 
 			
@@ -167,13 +166,21 @@ class MainController extends Controller {
 		$statistic['all_groups'] = count($this->connect->groups->get());
 		$statistic['tasks_progress'] = 100*$statistic['tasks_finished']/$statistic['all_tasks'];
 		$statistic['talks_progress'] = 100*$statistic['participating_talks']/$statistic['all_talks'];
-		
-		
+
 		$params = [
+			'sub_url' => '',
+			'body_url' => '',
 			'current_user' => $this->userId,
 			'current_val' =>$result,
 			'statistic' =>$statistic
 		];
+		$projectName = $this->connect->task()->getById(1);
+		
+		$params['sub_url'] = urldecode("Help me working in my project ".$projectName['text']);
+		$params['body_url'] = urldecode("Hi there, currently I am working on the project ".$projectName['text']." and I will need some help with it. Please let me know, if you have resources to join the project.");
+
+
+
 
 		return new TemplateResponse($this->appName, 'main', $params);
 	}
