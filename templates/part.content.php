@@ -58,7 +58,7 @@
 
                 <div class="tbl_cell">
                         <div class="clb_logo tbl">
-                            <div class="tbl_cell"><?= '<img src="',$_['current_val']['logo_src'] ,'" alt="Project Logo" id="project_logo" data-src="'.$_['current_val']['logo'].'">';?></div>
+                            <div class="tbl_cell"><img src="<?= $_['current_val']['logo'] ?>" alt="Project Logo" id="project_logo"></div>
                         </div>
                         <div class="tbl">
                             <div class="tbl_cell txt_left">
