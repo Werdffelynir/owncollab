@@ -175,7 +175,7 @@ class Helper
 //        $filePath = 'files/Photos/Paris.jpg';
         //$preview = \OC::$server->getPreviewManager()->createPreview($filePath, 128, 128, true);
         $conf = explode('/files/', $filePath);
-        $preview = new Preview($conf[0], '/files/', $conf[1], 128, 128, true);
+        $preview = new Preview($conf[0], '/', 'files/'.$conf[1], 128, 128, true);
         $resp = new DataDisplayResponse($preview->getPreview()->data(), Http::STATUS_OK, ['Content-Type' => 'image/png']);
         $src = 'data: '.$preview->getPreview()->mimeType().';base64,'.base64_encode($resp->render());
         return $src;
