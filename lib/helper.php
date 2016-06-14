@@ -3,6 +3,8 @@
 namespace OCA\Owncollab;
 
 use OC\User\Session;
+use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 
@@ -161,5 +163,13 @@ class Helper
             $rand .= $abc[rand()%strlen($abc)];
         }
         return $rand;
+    }
+    static public function prevImg($filePath)
+    {
+//        $filePath = 'files/Photos/Paris.jpg';
+        $preview = \OC::$server->getPreviewManager()->createPreview($filePath, 128, 128, true);
+        $resp = new DataDisplayResponse($preview->data(), Http::STATUS_OK, ['Content-Type' => 'image/png']);
+        $src = 'data: '.$preview->mimeType().';base64,'.base64_encode($resp->render());
+        return $src;
     }
 }

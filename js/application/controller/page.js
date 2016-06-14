@@ -38,12 +38,26 @@ if (App.namespace) {
                         var file = r[0];
                         $(".uploadedfiles ul").append('<li>' + file.name + ' ' + sizeDefinitionString(file.size) + '<input type="hidden" name="upload-files[]" value="' + file.id + '"></li>');
                         var usr_name = $('head').attr('data-user');
-                        $("#project_logo").attr('src', '/data/' + usr_name + '/files/ProjectLogo/' + file.name);
+                        $("#project_logo").attr('data-src', '/files/ProjectLogo/' + file.name);
+                        App.Action.Api.request('logoBaseEncode', function (response) {
+                            if (response.requesttoken) {
+                                app.requesttoken = response.requesttoken;
+
+                                $("#project_logo").attr('src', response.src);
+                            }
+                        },{'logo_src' : '/files/ProjectLogo/' + file.name});
 
                         //вставка изображений
                         $('.uploadedfiles>ul>li').click(function (event) {
                             event.preventDefault();
-                            $("#project_logo").attr('src', '/data/' + usr_name + '/files/ProjectLogo/' + file.name);
+                            $("#project_logo").attr('data-src', '/files/ProjectLogo/' + file.name);
+                            App.Action.Api.request('logoBaseEncode', function (response) {
+                                if (response.requesttoken) {
+                                    app.requesttoken = response.requesttoken;
+
+                                    $("#project_logo").attr('src', response.src);
+                                }
+                            },{'logo_src' : '/files/ProjectLogo/' + file.name});
                         });
                     } catch (e) {
                     }
@@ -75,7 +89,13 @@ if (App.namespace) {
                                     event.preventDefault();
                                     var usr_name = $('head').attr('data-user');
                                     var logo_name = $(this).html();
-                                    $("#project_logo").attr('src', '/data/' + usr_name + '/files/ProjectLogo/' + logo_name);
+                                    $("#project_logo").attr('data-src', '/files/ProjectLogo/' + logo_name);
+                                    App.Action.Api.request('logoBaseEncode', function (response) {
+                                        if (response.requesttoken) {
+                                            app.requesttoken = response.requesttoken;
+                                            $("#project_logo").attr('src', response.src);
+                                        }
+                                    },{'logo_src' : '/files/ProjectLogo/' + logo_name});
                                 });
                             }
                         });
@@ -109,7 +129,7 @@ if (App.namespace) {
             $("form").submit(function (event) {
                 event.preventDefault();
                 var form = Util.formData(this, true);
-                form.logo = jQuery('#project_logo').attr('src');
+                form.logo = jQuery('#project_logo').attr('data-src');
                 App.Action.Api.request('saveall', function (response) {
                     if (response.requesttoken) {
                         App.requesttoken = response.requesttoken;

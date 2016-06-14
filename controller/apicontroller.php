@@ -140,6 +140,17 @@ class ApiController extends Controller
 
         return new DataResponse($params);
     }
+    public function logoBaseEncode(){
+        $data = Helper::post('data', false);
+        $src = $data['logo_src'];
+        $params = [
+            'src' =>  Helper::prevImg($src),
+            'error' => null,
+            'errorinfo' => '',
+            'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
+        ];
+        return new DataResponse($params);
+    }
 
 
 }
