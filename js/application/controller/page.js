@@ -280,6 +280,7 @@ if (App.namespace) {
         an.render();
         return an;
     }
+    $('select').selectToAutocomplete();
 
 
 }
