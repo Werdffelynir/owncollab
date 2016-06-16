@@ -130,6 +130,7 @@ if (App.namespace) {
                 event.preventDefault();
                 var form = Util.formData(this, true);
                 form.logo = jQuery('#project_logo').attr('src');
+                console.log(form);
                 App.Action.Api.request('saveall', function (response) {
                     if (response.requesttoken) {
                         App.requesttoken = response.requesttoken;
@@ -280,8 +281,23 @@ if (App.namespace) {
         an.render();
         return an;
     }
-    $('select').selectToAutocomplete();
+    //$('select').selectToAutocomplete();
+    var projects = [];
+$('.drop_countries>li').each(function () {
+    var arr_temp=[];
+    arr_temp['value'] = $(this).attr('data');
+    arr_temp['label'] = $(this).text();
+    projects.push(arr_temp);
+});
+    
 
+    $( "#drop_countries" ).autocomplete({
+        minLength: 0,
+        source: projects,
+        select: function( event, ui ) {
+            console.log(event, ui);
+        }
+    });
 
 }
 

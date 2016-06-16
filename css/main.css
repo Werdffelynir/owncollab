@@ -46,7 +46,7 @@
 .clb_fields>.tbl>.tbl_cell:first-child{
     width: 60px;
 }
-.clb_fields>.tbl>.tbl_cell:last-child input{
+.clb_fields>.tbl>.tbl_cell:last-child input, .clb_fields>.tbl>.tbl_cell:last-child select{
     width: 266px;
 }
 .clb_fields>.tbl>.tbl_cell:last-child input[name=zip]{
@@ -192,29 +192,29 @@
 .clear{
     clear: both;
 }
-.ui-autocomplete {
-    padding: 0;
-    list-style: none;
-    background-color: #fff;
-    width: 218px;
-    border: 1px solid #B0BECA;
-    max-height: 350px;
-    overflow-x: hidden;
-}
-.ui-autocomplete .ui-menu-item {
-    border-top: 1px solid #B0BECA;
-    display: block;
-    padding: 4px 6px;
-    color: #353D44;
-    cursor: pointer;
-}
-.ui-autocomplete .ui-menu-item:first-child {
-    border-top: none;
-}
-.ui-autocomplete .ui-menu-item.ui-state-focus {
-    background-color: #D5E5F4;
-    color: #161A1C;
-}
+/*.ui-autocomplete {*/
+    /*padding: 0;*/
+    /*list-style: none;*/
+    /*background-color: #fff;*/
+    /*width: 218px;*/
+    /*border: 1px solid #B0BECA;*/
+    /*max-height: 350px;*/
+    /*overflow-x: hidden;*/
+/*}*/
+/*.ui-autocomplete .ui-menu-item {*/
+    /*border-top: 1px solid #B0BECA;*/
+    /*display: block;*/
+    /*padding: 4px 6px;*/
+    /*color: #353D44;*/
+    /*cursor: pointer;*/
+/*}*/
+/*.ui-autocomplete .ui-menu-item:first-child {*/
+    /*border-top: none;*/
+/*}*/
+/*.ui-autocomplete .ui-menu-item.ui-state-focus {*/
+    /*background-color: #D5E5F4;*/
+    /*color: #161A1C;*/
+/*}*/
 
 
 

@@ -54,7 +54,6 @@ if(Helper::isAppPage($appName)){
 //	Util::addScript($appName,'jquery-ui-timepicker');
 //	Util::addScript($appName, 'jquery.custom-scrollbar');
 	Util::addScript($appName, 'libs/jquery-ui-timepicker');
-	Util::addScript($appName, 'libs/jquery.select-to-autocomplete');
 	Util::addScript($appName, 'libs/an.script_1.0.2');
 	Util::addScript($appName, 'libs/ns.application');
 	Util::addScript($appName, 'init');

@@ -50,7 +50,10 @@
                     </div>
                     <div class="tbl">
                         <div class="tbl_cell">&nbsp;</div>
-                        <div class="tbl_cell"><? include "country.list.php"?></div>
+                        <div class="tbl_cell">
+                            <input id="drop_countries" name="country" type="text" value="<?= $_['current_val']['country'] ?>">
+                            <? include "country.list.php"?>
+                        </div>
                     </div>
                 </div>
 
