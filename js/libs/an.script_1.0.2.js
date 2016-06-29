@@ -148,8 +148,8 @@
                 root.context.scale(radiusX / radiusY, 1);
                 root.context.arc(0, 0, radiusY, startAngle, endAngle, (anticlockwise||true));
                 root.context.restore();
-                root.context.closePath();
                 root.context.stroke();
+                root.context.closePath();
             }
         }
 
