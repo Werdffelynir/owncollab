@@ -1,4 +1,4 @@
-@media only screen and (max-width:992px), only screen and (max-device-width:992px) {
+@media only screen and (max-width:1100px), only screen and (max-device-width:1100px) {
 .clb_dashboard>.tbl_cell:nth-child(2)>.tbl>.tbl_cell:nth-child(2){
     display: table-row;
 }

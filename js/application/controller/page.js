@@ -116,20 +116,21 @@ if (App.namespace) {
             });
             //canvas animation
 
-            d1 = drawElips('#elips1');
-            d2 = drawElips('#elips3');
-            d3 = drawCircle('#elips2');
-            d4 = drawCircle('#elips4');
-            d4 = drawCircle('#elips5');
-            d4 = drawCircle('#elips6');
-            d4 = drawCircle('#elips7');
-            d4 = drawCircle('#elips8');
+            drawElips('#elips1');
+            drawElips('#elips3');
+            drawCircle('#elips2');
+            drawCircle('#elips4');
+            drawCircle('#elips5');
+            drawCircle('#elips6');
+            drawCircle('#elips7');
+            drawCircle('#elips8');
 
             //отправка параметров дашборда
             $("form").submit(function (event) {
                 event.preventDefault();
                 var form = Util.formData(this, true);
                 form.logo = jQuery('#project_logo').attr('src');
+                console.log(form);
                 App.Action.Api.request('saveall', function (response) {
                     if (response.requesttoken) {
                         App.requesttoken = response.requesttoken;
@@ -230,9 +231,12 @@ if (App.namespace) {
                 ctx.beginPath();
                 ctx.strokeStyle = params[2];
                 ctx.lineWidth = 3;
-
+                
+                ctx.translate(25,25);
+                ctx.rotate(-an.u.degreesToRadians(90));
+                ctx.translate(-25,-25);
                 //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
-                ctx.ellipse(25, 25, 20, 20, -an.u.degreesToRadians(90), 0, an.u.degreesToRadians(360) * this.angle / 100, false);
+                ctx.arc(25, 25, 20, -an.u.degreesToRadians(0), an.u.degreesToRadians(360) * this.angle / 100);
 
                 if (this.angle > params[1] && this.picDraw == 0) {
                     this.picDraw = 1;
@@ -241,7 +245,7 @@ if (App.namespace) {
                     an.stop();
                 }
                 else this.angle += 1;
-
+               
                 ctx.stroke();
                 ctx.closePath();
             }
@@ -268,9 +272,11 @@ if (App.namespace) {
                 ctx.beginPath();
                 ctx.strokeStyle = '#F2F2F2';
                 ctx.lineWidth = 3;
-
+                ctx.translate(25,25);
+                ctx.rotate(-an.u.degreesToRadians(90));
+                ctx.translate(-25,-25);
                 //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
-                ctx.ellipse(25, 25, 20, 20, -an.u.degreesToRadians(90), 0, an.u.degreesToRadians(360) * this.angle / 100, false);
+                ctx.arc(25, 25, 20, -an.u.degreesToRadians(0), an.u.degreesToRadians(360) * this.angle / 100);
                 if (this.angle > 100) an.stop();
                 else this.angle += 3;
                 ctx.stroke();
@@ -280,7 +286,23 @@ if (App.namespace) {
         an.render();
         return an;
     }
+    //$('select').selectToAutocomplete();
+    var projects = [];
+$('.drop_countries>li').each(function () {
+    var arr_temp=[];
+    arr_temp['value'] = $(this).attr('data');
+    arr_temp['label'] = $(this).text();
+    projects.push(arr_temp);
+});
+    
 
+    $( "#drop_countries" ).autocomplete({
+        minLength: 0,
+        source: projects,
+        select: function( event, ui ) {
+            console.log(event, ui);
+        }
+    });
 
 }
 

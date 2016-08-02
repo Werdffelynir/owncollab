@@ -140,19 +140,19 @@
              * @param endAngle
              * @param anticlockwise
              */
-            root.context.ellipse = function(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise){
-                root.context.save();
-                root.context.beginPath();
-                root.context.translate(x, y);
-                root.context.rotate(rotation);
-                root.context.scale(radiusX / radiusY, 1);
-                root.context.arc(0, 0, radiusY, startAngle, endAngle, (anticlockwise||true));
-                root.context.restore();
-                root.context.closePath();
-                root.context.stroke();
-            }
+          
+        root.context.ellipse = function(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise){
+            root.context.save();
+            root.context.beginPath();
+            root.context.translate(x, y);
+            root.context.rotate(rotation);
+            root.context.scale(radiusX / radiusY, 1);
+            root.context.arc(0, 0, radiusY, startAngle, endAngle, (anticlockwise||true));
+            root.context.restore();
+            root.context.stroke();
+            root.context.closePath();
         }
-
+    }
         /**
          * Draw shadow for all elements on scene
          * @param x
