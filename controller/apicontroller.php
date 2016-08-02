@@ -49,7 +49,7 @@ class ApiController extends Controller
         IRequest $request,
         $userId,
         $isAdmin,
-        \OC_L10N $l10n,
+        $l10n,
         Connect $connect
     )
     {
@@ -93,7 +93,7 @@ class ApiController extends Controller
             'data' => $data,
             'error' => null,
             'errorinfo' => '',
-            'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
+            //'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
         ];
 
         $form = !empty($data['form']) ? $data['form'] : false;
@@ -135,7 +135,7 @@ class ApiController extends Controller
             'files' => $userfiles,
             'error' => null,
             'errorinfo' => '',
-            'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
+            //'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
         ];
 
         return new DataResponse($params);
@@ -147,7 +147,7 @@ class ApiController extends Controller
             'src' =>  Helper::prevImg($src),
             'error' => null,
             'errorinfo' => '',
-            'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
+            //'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
         ];
         return new DataResponse($params);
     }

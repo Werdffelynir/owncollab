@@ -84,7 +84,7 @@ class Link
             if($result){
                 $result = $result->rowCount();
             }
-        }catch(\AbstractDriverException $error ){}
+        }catch(\Exception $error ){}
         return $result;
     }
 
@@ -102,7 +102,7 @@ class Link
             if($result){
                 $result = $result->rowCount();
             }
-        }catch(\AbstractDriverException $error ){}
+        }catch(\Exception $error ){}
         return $result;
     }
 

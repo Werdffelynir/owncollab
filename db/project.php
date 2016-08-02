@@ -186,7 +186,7 @@ class Project
             if(in_array($key, $this->fields))
                 $_data [$key] = $value;
         }
-        $this->connect->update($this->tableName, $_data, 'open = 1');
+        return $this->connect->update($this->tableName, $_data, 'open = 1');
     }
 
     public function createProject($data) {
@@ -196,6 +196,8 @@ class Project
                 $_data [$key] = $value;
         }
         $this->connect->insert($this->tableName, $_data);
+
+        return (int) $this->connect->db->errorCode() === 0 ? true : false;
     }
 
 
