@@ -14,7 +14,9 @@
 #app-lbox{display: none}
 #app-content{}
 #app-content-error{}
-#app-content-wrapper{}
+#app-content-wrapper{
+    height: 100%;
+}
 #app-sidebar{}
 .cld_left_menu ul{
     margin: 10px;
@@ -25,6 +27,7 @@
 }
 .clb_dashboard{
     font-weight: normal;
+    height: 100%;
 }
 .clb_dashboard input{
     height: 28px;
@@ -46,7 +49,7 @@
 .clb_fields>.tbl>.tbl_cell:first-child{
     width: 60px;
 }
-.clb_fields>.tbl>.tbl_cell:last-child input{
+.clb_fields>.tbl>.tbl_cell:last-child input, .clb_fields>.tbl>.tbl_cell:last-child select{
     width: 266px;
 }
 .clb_fields>.tbl>.tbl_cell:last-child input[name=zip]{
@@ -109,9 +112,8 @@
 }
 .clb_statistic>.tbl>.tbl_cell>canvas{
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: 50%;
-    margin-top: -25px;
     margin-left: -25px;
 }
 .clb_statistic a{
@@ -192,6 +194,7 @@
 .clear{
     clear: both;
 }
+
 
 
 
