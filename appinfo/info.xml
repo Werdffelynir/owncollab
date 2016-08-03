@@ -9,6 +9,6 @@
     <namespace>Owncollab</namespace>
     <category>other</category>
     <dependencies>
-        <owncloud min-version="8.1" max-version="9"/>
+        <owncloud min-version="8" max-version="9"/>
     </dependencies>
 </info>
