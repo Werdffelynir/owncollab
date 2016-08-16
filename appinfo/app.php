@@ -46,7 +46,7 @@ Util::addTranslations($appName);
 /**
  * Application styles and scripts
  */
-if(Helper::isAppPage($appName)){
+if(Helper::isApp($appName)){
 	Util::addStyle($appName, 'main');
 	Util::addStyle($appName, 'media');
 	Util::addStyle($appName, 'jquery-ui-timepicker');
