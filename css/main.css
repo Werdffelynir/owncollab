@@ -36,7 +36,7 @@
     font-weight: bold;
 }
 .clb_dashboard>div:first-child{
-    border-right: 1px solid #0a235d;
+    border-right: 1px solid #eee;
     width: 200px;
 }
 .clb_dashboard>div:last-child{
