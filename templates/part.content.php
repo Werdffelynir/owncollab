@@ -6,53 +6,56 @@
 
 ?>
 
-
 <div class="tbl">
     <!--    left side    -->
     <div class="tbl_cell left_side">
         <h1><?=$_['projectName']?></h1>
+        <?php if(!$_['sd']['flag']){
+            echo'Error. Please,<br>'.$_['sd']['error'];
+        }else{?>
         <form method="post" id="dashboard" enctype="multipart/form-data">
             <div class="tbl">
 
                 <div class="tbl_cell clb_fields">
                     <div class="tbl">
                         <div class="tbl_cell">Client</div>
-                        <div class="tbl_cell"><input type="text" placeholder="Client name" name="client_name"
-                                                     value="<?= $_['current_val']['client_name'] ?>">
+                        <div class="tbl_cell"><input type="text" placeholder="Client name" class="client_name" name="client_name"
+                                                     value="<?= $_['current_val']['client_name'] ?>" disabled>
                         </div>
                     </div>
                     <div class="tbl">
                         <div class="tbl_cell">Venue</div>
-                        <div class="tbl_cell"><input type="text" placeholder="Description 1"
-                                                     name="desc1" value="<?= $_['current_val']['desc1'] ?>">
+                        <div class="tbl_cell"><input type="text" placeholder="Description 1" <?=$_['disabled']?>
+                                                     name="description1" value="<?= $_['current_val']['description1'] ?>">
                         </div>
                     </div>
                     <div class="tbl">
-                        <div class="tbl_cell">&nbsp;</div>
-                        <div class="tbl_cell"><input type="text" placeholder="Description 2"
-                                                     name="desc2" value="<?= $_['current_val']['desc2'] ?>">
+                        <div class="tbl_cell"></div>
+                        <div class="tbl_cell"><input type="text" placeholder="Description 2" <?=$_['disabled']?>
+                                                     name="description2" value="<?= $_['current_val']['description2'] ?>">
                         </div>
                     </div>
                     <div class="tbl">
-                        <div class="tbl_cell">&nbsp;</div>
-                        <div class="tbl_cell"><input type="text" placeholder="Street + Number" name="street"
+                        <div class="tbl_cell"></div>
+                        <div class="tbl_cell"><input type="text" placeholder="Street + Number" name="street" <?=$_['disabled']?>
                                                      value="<?= $_['current_val']['street'] ?>">
                         </div>
                     </div>
                     <div class="tbl">
-                        <div class="tbl_cell">&nbsp;</div>
-                        <div class="tbl_cell"><input type="text" placeholder="ZIP" name="zip"
+                        <div class="tbl_cell"></div>
+                        <div class="tbl_cell"><input type="text" placeholder="ZIP" name="zip" <?=$_['disabled']?>
                                                      value="<?= $_['current_val']['zip'] ?>"> <input
                                 type="text"
-                                placeholder="City"
+                                placeholder="City" <?=$_['disabled']?>
                                 name="city" value="<?= $_['current_val']['city'] ?>">
                         </div>
                     </div>
                     <div class="tbl">
-                        <div class="tbl_cell">&nbsp;</div>
+                        <div class="tbl_cell"></div>
                         <div class="tbl_cell">
-                            <input id="drop_countries" name="country" type="text" value="<?= $_['current_val']['country'] ?>">
-                            <? include "country.list.php"?>
+                          <input id="drop_countries" type="hidden" <?=$_['disabled']?> value="<?= $_['current_val']['country'] ?>">
+                            <?php include "country.list.php"?>
+
                         </div>
                     </div>
                 </div>
@@ -60,19 +63,21 @@
 
                 <div class="tbl_cell">
                         <div class="clb_logo tbl">
-                            <div class="tbl_cell"><img src="<?= $_['current_val']['logo'] ?>" alt="Project Logo" id="project_logo"></div>
+                            <div class="tbl_cell"><img src="<?= $_['current_val']['image'] ?>" alt="Project Logo" id="project_logo"></div>
                         </div>
+                    <?php if (!$_['disabled']){?>
                         <div class="tbl">
                             <div class="tbl_cell txt_left">
                                 <div class="uploadLogoBtn">
                                 <span id="uploadLogoSpan">Upload</span>
-                                <input type="file" name="uploadlogo" id="uploadLogoBtn">
+                                <input type="file" id="uploadLogoBtn">
                                 </div>
                             </div>
                             <div class="tbl_cell txt_right">
                                 <a id="ajax_button_show_files">Choose</a>
                             </div>
                         </div>
+                    <?php }?>
                         <div class="uploadedfiles"><ul></ul></div>
                     <div class="list_files"><ul></ul></div>
                     <div id="uploadimg" class="txt_center" style="display: none">
@@ -82,19 +87,21 @@
             </div>
             <div>
                 <div>Period of Time</div>
-                <div class="dp_block"> from <input type="text" class="datetime" name="start_date"
-                                                   value="<?= $_['current_val']['start_date'] ?>"> to <input type="text"
+                <div class="dp_block"> from <input type="text" class="datetime" name="start_date" disabled
+                                                   value="<?= $_['current_val']['start_date'] ?>"> to <input type="text" disabled
                                                                                                              class="datetime"
                                                                                                              name="end_date"
                                                                                                              value="<?= $_['current_val']['end_date'] ?>">
                 </div>
             </div>
             <div class="txt_right">
-            <textarea name="comment"
-                      placeholder="input text field like the Talks input field width some text format features"><?= $_['current_val']['comment'] ?></textarea>
-                <input type="submit" value="Submit" id="send_dashboard">
+            <textarea name="comment" <?=$_['disabled']?>
+                      placeholder="You can add additional project information"><?= $_['current_val']['comment'] ?></textarea>
+                <?php if (!$_['disabled']){?> <input type="submit" value="Submit" id="send_dashboard"><?php }?>
             </div>
         </form>
+        <?php }?>
+
     </div>
 
 

@@ -16,6 +16,9 @@ class Connect
     /** @var Task model of database table */
     private $task;
 
+    /** @var Project_data model of database table */
+    private $project_data;
+
     /** @var Link model of database table */
     private $link;
 
@@ -38,6 +41,8 @@ class Connect
         $this->users = new Users($this, 'users');
         $this->activity = new Activity($this, 'activity');
         $this->groups = new Groups($this, 'groups');
+        $this->group_user = new Group_user($this, 'group_user');
+        $this->project_data = new Project_data($this, 'collab_project_data');
     }
 
     /**
@@ -139,6 +144,22 @@ class Connect
      */
     public function task() {
         return $this->task;
+    }
+    /**
+     * Retry instance of class working with database
+     * Table of collab_project_data
+     * @return Project_data
+     */
+    public function project_data() {
+        return $this->project_data;
+    }
+    /**
+     * Retry instance of class working with database
+     * Table of group_user
+     * @return Group_user
+     */
+    public function group_user() {
+        return $this->group_user;
     }
 
     /**

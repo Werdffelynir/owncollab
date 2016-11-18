@@ -30,6 +30,10 @@ class Users
         $result = $this->connect->queryAll($sql);
         return $result;
     }
-
+    public function getUser($userId){
+        $sql = "SELECT * FROM `{$this->tableName}` where `uid` = :userId";
+        $result = $this->connect->query($sql,[':userId'=>$userId]);
+        return $result;
+    }
 
 }

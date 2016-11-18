@@ -152,6 +152,12 @@ class Task
         $result = $this->connect->query($sql);
         return $result['count'];
     }
+    public function get_project(){
+        $sql = "SELECT *
+                FROM `{$this->tableName}`";
+        $result = $this->connect->query($sql);
+        return $result;
+    }
 
 
 

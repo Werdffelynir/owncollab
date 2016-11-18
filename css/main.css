@@ -194,7 +194,16 @@
 .clear{
     clear: both;
 }
-
+#dashboard input:disabled,
+#dashboard textarea:disabled
+{
+    background-color: #ffffff;
+    color: #555;
+}
+.left_side .ul{
+    list-style: square;
+    margin-left: 35px;
+}
 
 
 

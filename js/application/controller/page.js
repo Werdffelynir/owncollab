@@ -29,41 +29,41 @@ if (App.namespace) {
 
 
             //кнопка загрузить логотип "upload"
-            document.getElementById("uploadLogoBtn").onchange = function () {
-                var file = document.getElementById('uploadLogoBtn').files[0];
-                $('#uploadimg').show();
-                uploadLogo(file, function (response) {
-                    try {
-                        var r = JSON.parse(response);
-                        var file = r[0];
-                        $(".uploadedfiles ul").append('<li>' + file.name + ' ' + sizeDefinitionString(file.size) + '<input type="hidden" name="upload-files[]" value="' + file.id + '"></li>');
-                        var usr_name = $('head').attr('data-user');
-                        // $("#project_logo").attr('data-src', usr_name + '/files/ProjectLogo/' + file.name);
-                        App.Action.Api.request('logoBaseEncode', function (response) {
-                            if (response.requesttoken) {
-                                app.requesttoken = response.requesttoken;
+            if (document.getElementById("uploadLogoBtn")) {
+                document.getElementById("uploadLogoBtn").onchange = function () {
+                    var file = document.getElementById('uploadLogoBtn').files[0];
+                    $('#uploadimg').show();
+                    uploadLogo(file, function (response) {
+                        try {
+                            var r = JSON.parse(response);
+                            var file = r[0];
+                            $(".uploadedfiles ul").append('<li>' + file.name + ' ' + sizeDefinitionString(file.size) + '<input type="hidden" name="upload-files[]" value="' + file.id + '"></li>');
+                            var usr_name = $('head').attr('data-user');
+                            App.Action.Api.request('logoBaseEncode', function (response) {
+                                //if (response.requesttoken) {
+                                //app.requesttoken = response.requesttoken;
 
                                 $("#project_logo").attr('src', response.src);
-                            }
-                        },{'logo_src' :  usr_name + '/files/ProjectLogo/' + file.name});
+                                //}
+                            }, {'logo_src': usr_name + '/files/ProjectLogo/' + file.name});
 
-                        //вставка изображений
-                        $('.uploadedfiles>ul>li').click(function (event) {
-                            event.preventDefault();
-                            // $("#project_logo").attr('data-src', usr_name + '/files/ProjectLogo/' + file.name);
-                            App.Action.Api.request('logoBaseEncode', function (response) {
-                                if (response.requesttoken) {
+                            //вставка изображений
+                            $('.uploadedfiles>ul>li').click(function (event) {
+                                event.preventDefault();
+                                App.Action.Api.request('logoBaseEncode', function (response) {
+                                    //if (response.requesttoken) {
                                     app.requesttoken = response.requesttoken;
 
                                     $("#project_logo").attr('src', response.src);
-                                }
-                            },{'logo_src' :  usr_name + '/files/ProjectLogo/' + file.name});
-                        });
-                    } catch (e) {
-                    }
-                });
-                $('#uploadimg').hide();
+                                    //}
+                                }, {'logo_src': usr_name + '/files/ProjectLogo/' + file.name});
+                            });
+                        } catch (e) {
+                        }
+                    });
+                    $('#uploadimg').hide();
 
+                }
             }
             //кнопка выбрать логотип "choose"
             $("#ajax_button_show_files").click(
@@ -73,31 +73,31 @@ if (App.namespace) {
                         $(this).text('Close');
                         $('#uploadimg').show();
                         App.Action.Api.request('getlogo', function (response) {
-                           
-                            if (response.requesttoken) {
-                                app.requesttoken = response.requesttoken;
-                                var list_img = '';
-                                for (var i = 0; i < response.files.length; i++) {
-                                    list_img += '<li>' + response.files[i].name + '</li>'
-                                }
-                                if(!list_img){
-                                    list_img+='<p>у Вас нет изображений</p>';
-                                }
-                                $('.list_files>ul').html(list_img);
-                                //вставка изображений со списка сохраненных
-                                $('.list_files>ul>li').click(function (event) {
-                                    event.preventDefault();
-                                    var usr_name = $('head').attr('data-user');
-                                    var logo_name = $(this).html();
-                                    // $("#project_logo").attr('data-src',  usr_name + '/files/ProjectLogo/' + logo_name);
-                                    App.Action.Api.request('logoBaseEncode', function (response) {
-                                        if (response.requesttoken) {
-                                            app.requesttoken = response.requesttoken;
-                                            $("#project_logo").attr('src', response.src);
-                                        }
-                                    },{'logo_src' :   usr_name + '/files/ProjectLogo/' + logo_name});
-                                });
+
+                            //if (response.requesttoken) {
+                            //    app.requesttoken = response.requesttoken;
+                            var list_img = '';
+                            for (var i = 0; i < response.files.length; i++) {
+                                list_img += '<li>' + response.files[i].name + '</li>'
                             }
+                            if (!list_img) {
+                                list_img += '<p>у Вас нет изображений</p>';
+                            }
+                            $('.list_files>ul').html(list_img);
+                            //вставка изображений со списка сохраненных
+                            $('.list_files>ul>li').click(function (event) {
+                                event.preventDefault();
+                                var usr_name = $('head').attr('data-user');
+                                var logo_name = $(this).html();
+                                // $("#project_logo").attr('data-src',  usr_name + '/files/ProjectLogo/' + logo_name);
+                                App.Action.Api.request('logoBaseEncode', function (response) {
+                                    //if (response.requesttoken) {
+                                    app.requesttoken = response.requesttoken;
+                                    $("#project_logo").attr('src', response.src);
+                                    //}
+                                }, {'logo_src': usr_name + '/files/ProjectLogo/' + logo_name});
+                            });
+                            //}
                         });
                         $('#uploadimg').hide();
                     } else {
@@ -109,11 +109,11 @@ if (App.namespace) {
 
 
             //дата-пикер
-            $('input.datetime').datetimepicker({
-                dateFormat: 'dd.mm.yy',
-                timeFormat: "HH:mm"
-
-            });
+            //$('input.datetime').datetimepicker({
+            //    dateFormat: 'yy-mm-dd',
+            //    timeFormat: "HH:mm",
+            //
+            //});
             //canvas animation
 
             drawElips('#elips1');
@@ -129,12 +129,11 @@ if (App.namespace) {
             $("form").submit(function (event) {
                 event.preventDefault();
                 var form = Util.formData(this, true);
-                form.logo = jQuery('#project_logo').attr('src');
-                console.log(form);
+                form.image = jQuery('#project_logo').attr('src');
+                form = JSON.stringify(form);
+                //console.log(form);
                 App.Action.Api.request('saveall', function (response) {
-                    if (response.requesttoken) {
-                        App.requesttoken = response.requesttoken;
-                    }
+                    console.log(response);
                 }, {'form': form});
             });
 
@@ -231,10 +230,10 @@ if (App.namespace) {
                 ctx.beginPath();
                 ctx.strokeStyle = params[2];
                 ctx.lineWidth = 3;
-                
-                ctx.translate(25,25);
+
+                ctx.translate(25, 25);
                 ctx.rotate(-an.u.degreesToRadians(90));
-                ctx.translate(-25,-25);
+                ctx.translate(-25, -25);
                 //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
                 ctx.arc(25, 25, 20, -an.u.degreesToRadians(0), an.u.degreesToRadians(360) * this.angle / 100);
 
@@ -245,7 +244,7 @@ if (App.namespace) {
                     an.stop();
                 }
                 else this.angle += 1;
-               
+
                 ctx.stroke();
                 ctx.closePath();
             }
@@ -272,9 +271,9 @@ if (App.namespace) {
                 ctx.beginPath();
                 ctx.strokeStyle = '#F2F2F2';
                 ctx.lineWidth = 3;
-                ctx.translate(25,25);
+                ctx.translate(25, 25);
                 ctx.rotate(-an.u.degreesToRadians(90));
-                ctx.translate(-25,-25);
+                ctx.translate(-25, -25);
                 //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
                 ctx.arc(25, 25, 20, -an.u.degreesToRadians(0), an.u.degreesToRadians(360) * this.angle / 100);
                 if (this.angle > 100) an.stop();
@@ -286,23 +285,24 @@ if (App.namespace) {
         an.render();
         return an;
     }
-    //$('select').selectToAutocomplete();
-    var projects = [];
-$('.drop_countries>li').each(function () {
-    var arr_temp=[];
-    arr_temp['value'] = $(this).attr('data');
-    arr_temp['label'] = $(this).text();
-    projects.push(arr_temp);
-});
-    
 
-    $( "#drop_countries" ).autocomplete({
-        minLength: 0,
-        source: projects,
-        select: function( event, ui ) {
-            console.log(event, ui);
+
+    var user_country = $('#drop_countries').val();
+    var option = $('.drop_countries').find('option');
+
+    $(option).each(function (i, obj) {
+        if ($(obj).val() == user_country) {
+            $(obj).attr('selected', true);
         }
     });
+
+    //выпадающий список стран
+    //$('.drop_countries').selectToAutocomplete();
+
+    console.log($('#drop_countries').attr('disabled'));
+    if ($('#drop_countries').attr('disabled')) {
+        $('.drop_countries').attr('disabled', 'disabled');
+    }
 
 }
 

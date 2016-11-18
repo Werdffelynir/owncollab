@@ -1,0 +1,53 @@
+<database>
+    <name>*dbname*</name>
+    <create>true</create>
+    <overwrite>true</overwrite>
+    <charset>utf8</charset>
+
+    <table>
+        <name>*dbprefix*collab_project_data</name>
+        <declaration>
+            <field>
+                <name>uid</name>
+                <type>text</type>
+                <notnull>true</notnull>
+                <length>255</length>
+                <primary>true</primary>
+                <autoincrement>true</autoincrement>
+            </field>
+            <field>
+                <name>image</name>
+                <type>blob</type>
+            </field>
+            <field>
+                <name>description1</name>
+                <type>text</type>
+            </field>
+            <field>
+                <name>description2</name>
+                <type>text</type>
+            </field>
+            <field>
+                <name>street</name>
+                <type>text</type>
+            </field>
+            <field>
+                <name>zip</name>
+                <type>text</type>
+            </field>
+            <field>
+                <name>city</name>
+                <type>text</type>
+            </field>
+            <field>
+                <name>country</name>
+                <type>text</type>
+            </field>
+            <field>
+                <name>comment</name>
+                <type>text</type>
+            </field>
+        </declaration>
+    </table>
+
+</database>

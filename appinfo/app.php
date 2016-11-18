@@ -50,8 +50,8 @@ if (\OC_App::isEnabled('owncollab_chart')) {
     if(Helper::isApp($appName)){
         Util::addStyle($appName, 'main');
         Util::addStyle($appName, 'media');
-        Util::addStyle($appName, 'jquery-ui-timepicker');
         Util::addScript($appName, 'libs/jquery-ui-timepicker');
+        Util::addScript($appName, 'libs/jquery.select-to-autocomplete');
         Util::addScript($appName, 'libs/an.script_1.0.2');
         Util::addScript($appName, 'libs/ns.application');
         Util::addScript($appName, 'init');

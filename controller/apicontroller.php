@@ -33,6 +33,10 @@ class ApiController extends Controller
     /** @var Connect $connect
      * instance working with database */
     private $connect;
+    /**
+     * @var string $client
+     */
+    private $client;
 
 
     /**
@@ -59,6 +63,7 @@ class ApiController extends Controller
         $this->isAdmin = $isAdmin;
         $this->l10n = $l10n;
         $this->connect = $connect;
+        $this->client = 'client';
     }
 
     /**
@@ -89,27 +94,24 @@ class ApiController extends Controller
     {
 
         if (!$this->isAdmin) exit;
+
+        if(empty($data['form']))
+            return false;
+
+        $data = json_decode($data['form'], true);
         $params = [
             'data' => $data,
-            'error' => null,
-            'errorinfo' => '',
-            //'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
         ];
 
-        $form = !empty($data['form']) ? $data['form'] : false;
 
-        if ($form && $this->connect->project()->get()) {
-            $result = $this->connect->project()->updateProject($form);
-            $params['result'] = $result;
+        $project_data = $this->connect->project_data()->getData($this->client);
 
-        } elseif ($form) {
-            $result = $this->connect->project()->createProject($form);
-            $params['result'] = $result;
-
+        if ($project_data) {
+            $this->connect->project_data()->update($data, $this->client);
         } else {
-            $params['error'] = true;
-            $params['errorinfo'] = 'Empty form fields';
+            $this->connect->project_data()->insert($data, $this->client);
         }
+
 
         return new DataResponse($params);
     }
@@ -135,19 +137,19 @@ class ApiController extends Controller
             'files' => $userfiles,
             'error' => null,
             'errorinfo' => '',
-            //'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
         ];
 
         return new DataResponse($params);
     }
-    public function logoBaseEncode(){
+
+    public function logoBaseEncode()
+    {
         $data = Helper::post('data', false);
         $src = $data['logo_src'];
         $params = [
-            'src' =>  Helper::prevImg($src),
+            'src' => Helper::prevImg($src),
             'error' => null,
             'errorinfo' => '',
-            //'requesttoken' => (!\OC_Util::isCallRegistered()) ? '' : \OC_Util::callRegister(),
         ];
         return new DataResponse($params);
     }
