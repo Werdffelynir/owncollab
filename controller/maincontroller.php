@@ -57,7 +57,7 @@ class MainController extends Controller
      * @param IRequest $request
      * @param $userId
      * @param $isAdmin
-     * @param \OC_L10N $l10n
+     * @param \OC\L10N\L10N $l10n
      * @param Connect $connect
      */
     public function __construct(
@@ -65,7 +65,7 @@ class MainController extends Controller
         IRequest $request,
         $userId,
         $isAdmin,
-        \OC_L10N $l10n,
+        $l10n,
         Connect $connect,
         IURLGenerator $urlGenerator
     )
